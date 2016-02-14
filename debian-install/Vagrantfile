@@ -3,5 +3,8 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "scalefactory/centos6"
-  config.vm.provision "docker"
+  config.vm.provision "docker" do |d|
+    d.build_image '/vagrant', args: '-t kimihito/ubuntu'
+    d.run 'kimihito/ubuntu', args: "-d -t -v /vagrant:/tmp/shared"
+  end
 end
